@@ -25,4 +25,8 @@ public class Playlist {
     public Song get(int index) {
         return songs.get(index);
     }
+
+    public Long size() {
+        return Long.valueOf(songs.size());
+    }
 }

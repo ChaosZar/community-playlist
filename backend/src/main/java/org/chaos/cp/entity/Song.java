@@ -24,6 +24,9 @@ public class Song {
     )
     private Artist artist;
 
+    public Song() {
+    }
+
     public Song(String name) {
         this.name = name;
     }
@@ -36,4 +39,12 @@ public class Song {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist=" + artist +
+                '}';
+    }
 }

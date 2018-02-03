@@ -1,4 +1,4 @@
-package org.chaos.cp;
+package org.chaos.cp.repository;
 
 import org.assertj.core.api.Assertions;
 import org.chaos.cp.entity.Playlist;
