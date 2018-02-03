@@ -2,6 +2,8 @@ package org.chaos.cp.rest;
 
 import org.chaos.cp.connector.MusicStorage;
 import org.chaos.cp.entity.Song;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +21,12 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/song")
 public class SongService {
+    private static final Logger LOG = LoggerFactory.getLogger(SongService.class);
 
     @Autowired
     private List<MusicStorage> musicStorages;
 
-    @RequestMapping(path = "/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{name}", method = RequestMethod.GET)
     public @ResponseBody
     List<Song> findSongsByName(@PathVariable(value = "name") String name) {
         return musicStorages.stream().filter(MusicStorage::isEnabled)
@@ -32,7 +35,7 @@ public class SongService {
                     try {
                         songs = musicStorage.findSongsByTitle(name);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOG.error("Error while finding songs", e);
                         songs = Collections.emptyList();
                     }
                     return songs.stream();

@@ -86,7 +86,7 @@ public class LocalFilesystemMusicFetcher {
             if (StringUtils.isNotBlank(title)) {
                 song = new Song(title);
                 Artist artist = artistRepository.findArtistByName(artistName);
-                if (artist == null) {
+                if (artist == null && StringUtils.isNotBlank(artistName)) {
                     artist = new Artist();
                     artist.setName(artistName);
                     artist = artistRepository.save(artist);
