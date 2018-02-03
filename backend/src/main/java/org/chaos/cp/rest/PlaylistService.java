@@ -1,10 +1,10 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.Playlist;
-import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.manager.PlaylistManager;
 import org.chaos.cp.repository.UserRepository;
+import org.chaos.cp.rest.json.SetPlaylistRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +37,8 @@ public class PlaylistService {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void setPlaylistForUser(@PathVariable(name = "userId") Long userId, @PathVariable(name = "songs") List<Song> songs) {
-        playlistManager.setPlaylistForUser(userId, songs);
+    public void setPlaylistForUser(SetPlaylistRequest setPlaylistRequest) {
+        playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(), setPlaylistRequest.getSongs());
     }
 
 }
