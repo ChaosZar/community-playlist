@@ -8,7 +8,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String title;
 
     @ManyToOne
     @JoinTable(
@@ -27,23 +27,31 @@ public class Song {
     public Song() {
     }
 
-    public Song(String name) {
-        this.name = name;
+    public Song(String title) {
+        this.title = title;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", artist=" + artist +
                 '}';
     }
