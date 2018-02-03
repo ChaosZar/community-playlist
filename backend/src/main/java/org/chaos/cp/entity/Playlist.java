@@ -37,4 +37,8 @@ public class Playlist {
     public Long size() {
         return Long.valueOf(songs.size());
     }
+
+    public void reset() {
+        songs = new ArrayList<>();
+    }
 }

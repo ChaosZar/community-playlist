@@ -38,7 +38,15 @@ public class PlaylistManagerTest {
 
     @Test
     public void createMasterPlaylistOutOfThreeEvenlyPlaylists() {
-        //Create a bunch of Songs to add to test playLists
+
+        User user1 = new User("USER_1");
+        User user2 = new User("USER_2");
+        User user3 = new User("USER_3");
+
+        users.save(user1);
+        users.save(user2);
+        users.save(user3);
+
         Song song1 = new Song("Song1");
         Song song2 = new Song("Song2");
         Song song3 = new Song("Song3");
@@ -52,12 +60,12 @@ public class PlaylistManagerTest {
         songs.save(song5);
         songs.save(song6);
 
-        UserSong userSong1 = new UserSong(song1);
-        UserSong userSong2 = new UserSong(song2);
-        UserSong userSong3 = new UserSong(song3);
-        UserSong userSong4 = new UserSong(song4);
-        UserSong userSong5 = new UserSong(song5);
-        UserSong userSong6 = new UserSong(song6);
+        UserSong userSong1 = new UserSong(user1, song1, 1);
+        UserSong userSong2 = new UserSong(user1, song2, 2);
+        UserSong userSong3 = new UserSong(user2, song3, 1);
+        UserSong userSong4 = new UserSong(user2, song4, 2);
+        UserSong userSong5 = new UserSong(user3, song5, 1);
+        UserSong userSong6 = new UserSong(user3, song6, 2);
         userSongs.save(userSong1);
         userSongs.save(userSong2);
         userSongs.save(userSong3);
@@ -81,11 +89,8 @@ public class PlaylistManagerTest {
         playlists.save(playlist2);
         playlists.save(playlist3);
 
-        User user1 = new User("USER_1");
         user1.setPlaylist(playlist1);
-        User user2 = new User("USER_2");
         user2.setPlaylist(playlist2);
-        User user3 = new User("USER_3");
         user3.setPlaylist(playlist3);
 
         users.save(user1);

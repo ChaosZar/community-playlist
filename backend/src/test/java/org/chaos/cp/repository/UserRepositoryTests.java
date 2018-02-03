@@ -34,16 +34,18 @@ public class UserRepositoryTests {
 
     @Test
     public void testFindByLoginWithFilledPlaylist() {
+        User customer = new User(LOGIN);
+
         Song song = new Song("SONG_NAME");
         persist(song);
 
-        UserSong userSong = new UserSong(song);
+        UserSong userSong = new UserSong(customer, song, 1);
 
         Playlist playlist = new Playlist();
         playlist.add(userSong);
         persist(playlist);
 
-        User customer = new User(LOGIN);
+
         customer.setPlaylist(playlist);
         persist(customer);
 

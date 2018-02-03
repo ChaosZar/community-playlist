@@ -1,6 +1,7 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.Playlist;
+import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.manager.PlaylistManager;
 import org.chaos.cp.repository.UserRepository;
@@ -33,6 +34,11 @@ public class PlaylistService {
     public @ResponseBody
     Playlist getUserPlaylist(@PathVariable(name = "userId") Long userId) {
         return users.findOne(userId).getPlaylist();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void setPlaylistForUser(@PathVariable(name = "userId") Long userId, @PathVariable(name = "songs") List<Song> songs) {
+        playlistManager.setPlaylistForUser(userId, songs);
     }
 
 }

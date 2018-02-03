@@ -14,6 +14,9 @@ public class User {
     @OneToOne
     private Playlist playlist;
 
+    public User() {
+    }
+
     public User(String login) {
         this.login = login;
     }
