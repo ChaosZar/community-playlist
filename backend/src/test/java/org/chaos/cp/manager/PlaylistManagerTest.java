@@ -4,9 +4,11 @@ import org.assertj.core.api.Assertions;
 import org.chaos.cp.entity.Playlist;
 import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.User;
+import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.repository.PlaylistRepository;
 import org.chaos.cp.repository.SongRepository;
 import org.chaos.cp.repository.UserRepository;
+import org.chaos.cp.repository.UserSongRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class PlaylistManagerTest {
 
     @Autowired
     private SongRepository songs;
+
+    @Autowired
+    private UserSongRepository userSongs;
 
     @Autowired
     private PlaylistRepository playlists;
@@ -47,17 +52,30 @@ public class PlaylistManagerTest {
         songs.save(song5);
         songs.save(song6);
 
+        UserSong userSong1 = new UserSong(song1);
+        UserSong userSong2 = new UserSong(song2);
+        UserSong userSong3 = new UserSong(song3);
+        UserSong userSong4 = new UserSong(song4);
+        UserSong userSong5 = new UserSong(song5);
+        UserSong userSong6 = new UserSong(song6);
+        userSongs.save(userSong1);
+        userSongs.save(userSong2);
+        userSongs.save(userSong3);
+        userSongs.save(userSong4);
+        userSongs.save(userSong5);
+        userSongs.save(userSong6);
+
         Playlist playlist1 = new Playlist();
-        playlist1.add(song1);
-        playlist1.add(song2);
+        playlist1.add(userSong1);
+        playlist1.add(userSong2);
 
         Playlist playlist2 = new Playlist();
-        playlist2.add(song3);
-        playlist2.add(song4);
+        playlist2.add(userSong3);
+        playlist2.add(userSong4);
 
         Playlist playlist3 = new Playlist();
-        playlist3.add(song5);
-        playlist3.add(song6);
+        playlist3.add(userSong5);
+        playlist3.add(userSong6);
 
         playlists.save(playlist1);
         playlists.save(playlist2);
@@ -74,15 +92,15 @@ public class PlaylistManagerTest {
         users.save(user2);
         users.save(user3);
 
-        List<Song> masterPlaylist = playlistManager.getMasterPlaylist();
+        List<UserSong> masterPlaylist = playlistManager.getMasterPlaylist();
 
         System.out.println(masterPlaylist);
 
-        Assertions.assertThat(masterPlaylist.get(0).getId()).isEqualTo(song1.getId());
-        Assertions.assertThat(masterPlaylist.get(1).getId()).isEqualTo(song3.getId());
-        Assertions.assertThat(masterPlaylist.get(2).getId()).isEqualTo(song5.getId());
-        Assertions.assertThat(masterPlaylist.get(3).getId()).isEqualTo(song2.getId());
-        Assertions.assertThat(masterPlaylist.get(4).getId()).isEqualTo(song4.getId());
-        Assertions.assertThat(masterPlaylist.get(5).getId()).isEqualTo(song6.getId());
+        Assertions.assertThat(masterPlaylist.get(0).getId()).isEqualTo(userSong1.getId());
+        Assertions.assertThat(masterPlaylist.get(1).getId()).isEqualTo(userSong3.getId());
+        Assertions.assertThat(masterPlaylist.get(2).getId()).isEqualTo(userSong5.getId());
+        Assertions.assertThat(masterPlaylist.get(3).getId()).isEqualTo(userSong2.getId());
+        Assertions.assertThat(masterPlaylist.get(4).getId()).isEqualTo(userSong4.getId());
+        Assertions.assertThat(masterPlaylist.get(5).getId()).isEqualTo(userSong6.getId());
     }
 }
