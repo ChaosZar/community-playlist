@@ -12,8 +12,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 @RequestMapping("/user")
 public class UserService {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody User getUser(@RequestParam(value = "name", defaultValue = "") String name) {
+    @RequestMapping(path = "{userName}", method = RequestMethod.GET)
+    public @ResponseBody
+    User getUser(@RequestParam(value = "userName", defaultValue = "") String userName) {
         throw new NotImplementedException();
     }
 
