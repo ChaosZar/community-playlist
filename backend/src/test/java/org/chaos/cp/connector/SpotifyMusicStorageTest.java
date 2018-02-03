@@ -22,6 +22,6 @@ public class SpotifyMusicStorageTest {
     @Test
     public void testFindSong() throws IOException {
         Collection<Song> songs = spotifyMusicStorage.findSongsByName("Pretender");
-        Assertions.assertThat(songs).extracting(Song::getName).isEqualTo("The Pretender");
+        Assertions.assertThat(songs).extracting(Song::getTitle).isEqualTo("The Pretender");
     }
 }

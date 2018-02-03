@@ -1,6 +1,10 @@
 package org.chaos.cp.connector;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import org.apache.commons.lang3.StringUtils;
+import org.chaos.cp.entity.Artist;
 import org.chaos.cp.entity.Song;
 import org.chaos.cp.repository.SongRepository;
 import org.slf4j.Logger;
@@ -48,7 +52,7 @@ public class LocalFilesystemMusicFetcher {
                 FileVisitResult result = super.visitFile(path, basicFileAttributes);
                 if (StringUtils.startsWith(Files.probeContentType(path), "audio")) {
                     LOG.debug("found " + path.toString());
-                    Song song = new Song(path.toString());
+                    Song song = parseSongDetails(path);
                     songs.add(song);
                 }
                 return result;
@@ -60,6 +64,39 @@ public class LocalFilesystemMusicFetcher {
             }
         });
         return songs;
+    }
+
+    private Song parseSongDetails(Path path) throws IOException {
+        Song song = null;
+        try {
+            Mp3File mp3file = new Mp3File(path.toString());
+            String artistName = null;
+            String title = null;
+            if (mp3file.hasId3v2Tag()) {
+                artistName = mp3file.getId3v2Tag().getAlbumArtist();
+                title = mp3file.getId3v2Tag().getTitle();
+            } else if (mp3file.hasId3v1Tag()) {
+                artistName = mp3file.getId3v1Tag().getArtist();
+                title = mp3file.getId3v1Tag().getTitle();
+            }
+            if (StringUtils.isNotBlank(title)) {
+                song = new Song(title);
+                Artist artist = new Artist();
+                //TODO find existing artists to avoid duplicates
+                artist.setName(artistName);
+                song.setArtist(artist);
+            }
+        } catch (UnsupportedTagException e) {
+            LOG.warn("{} has unsupported tag", path.toString(), e);
+        } catch (InvalidDataException e) {
+            LOG.debug("{} is probably not a mp3 file", path.toString(), e);
+        } catch (IllegalArgumentException e) {
+            LOG.warn("{} has inconsistent tag data", path.toString(), e);
+        }
+        if (song == null) {
+            song = new Song(StringUtils.substringBeforeLast(path.getFileName().toString(), ".")); //XXX split filename by -
+        }
+        return song;
     }
 
 

@@ -1,6 +1,8 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.Song;
+import org.chaos.cp.repository.SongRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/song")
 public class SongService {
+
+    @Autowired
+    private SongRepository songRepository;
 
     @RequestMapping(path = "/name/{name}", method = RequestMethod.GET)
     public @ResponseBody
