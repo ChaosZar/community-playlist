@@ -22,12 +22,12 @@ public class UserRepositoryTests {
     private UserRepository customers;
 
     @Test
-    public void testFindByLastName() {
-        User customer = new User("first", "last");
+    public void testFindByLogin() {
+        User customer = new User("myLogin");
         entityManager.persist(customer);
 
-        List<User> findByLastName = customers.findByLastName(customer.getLastName());
+        List<User> findByLastName = customers.findByLogin(customer.getLogin());
 
-        Assertions.assertThat(findByLastName).extracting(User::getLastName).containsOnly(customer.getLastName());
+        Assertions.assertThat(findByLastName).extracting(User::getLogin).containsOnly(customer.getLogin());
     }
 }
