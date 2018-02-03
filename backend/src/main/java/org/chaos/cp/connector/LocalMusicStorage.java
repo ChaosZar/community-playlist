@@ -16,4 +16,9 @@ public class LocalMusicStorage implements MusicStorage {
     public Collection<Song> findSongsByTitle(String title) {
         return songRepository.findSongsByTitleContaining(title);
     }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
