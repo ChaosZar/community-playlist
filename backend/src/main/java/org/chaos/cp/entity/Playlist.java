@@ -41,4 +41,8 @@ public class Playlist {
     public void reset() {
         songs = new ArrayList<>();
     }
+
+    public List<UserSong> getSongs() {
+        return songs;
+    }
 }

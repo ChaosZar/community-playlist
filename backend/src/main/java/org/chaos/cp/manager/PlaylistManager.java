@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class PlaylistManager {
 
         Integer playlistIndex = 0;
         Integer playlistSongIndex = 0;
-        for (int index = 0; index < songsCount; index++) {
+        for (int songCounter = 0; songCounter < songsCount; songCounter++) {
             if (playlistIndex == allPlaylists.size()) {
                 playlistIndex = 0;
                 playlistSongIndex++;
@@ -47,6 +48,10 @@ public class PlaylistManager {
         }
 
         return result;
+    }
+
+    private Integer getHighestSongRating(List<Playlist> playlists) {
+        return playlists.stream().flatMap(playlist -> playlist.getSongs().stream()).max(Comparator.comparing(UserSong::getRank)).get().getRank();
     }
 
     public void setPlaylistForUser(final Long userId, final List<Song> songs) {
