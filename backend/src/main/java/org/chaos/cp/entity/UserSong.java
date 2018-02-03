@@ -25,8 +25,10 @@ public class UserSong implements Comparable<UserSong> {
 
     }
 
-    public UserSong(Song song) {
+    public UserSong(User user, Song song, Integer position) {
+        this.user = user;
         this.song = song;
+        this.position = position;
     }
 
     public Long getId() {

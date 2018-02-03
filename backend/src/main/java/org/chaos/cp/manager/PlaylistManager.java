@@ -1,8 +1,11 @@
 package org.chaos.cp.manager;
 
 import org.chaos.cp.entity.Playlist;
+import org.chaos.cp.entity.Song;
+import org.chaos.cp.entity.User;
 import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.repository.PlaylistRepository;
+import org.chaos.cp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,9 @@ import java.util.List;
 
 @Service
 public class PlaylistManager {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PlaylistRepository playlistRepository;
@@ -41,5 +47,18 @@ public class PlaylistManager {
         }
 
         return result;
+    }
+
+    public void setPlaylistForUser(final Long userId, final List<Song> songs) {
+        User user = userRepository.findOne(userId);
+
+        Playlist playlist = user.getPlaylist();
+        playlist.reset();
+
+        Integer positionIndex = 0;
+        for (Song song : songs) {
+            UserSong userSong = new UserSong(user, song, positionIndex++);
+            playlist.add(userSong);
+        }
     }
 }
