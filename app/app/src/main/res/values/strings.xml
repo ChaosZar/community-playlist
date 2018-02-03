@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CommunityPlaylist</string>
+    <string name="loginButtonText">Login</string>
+    <string name="switchToSearchButtonText">Search</string>
 </resources>
