@@ -10,8 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UserRepositoryTests {
@@ -26,8 +24,8 @@ public class UserRepositoryTests {
         User customer = new User("myLogin");
         entityManager.persist(customer);
 
-        List<User> findByLastName = customers.findByLogin(customer.getLogin());
+        User findByLastName = customers.findByLogin(customer.getLogin());
 
-        Assertions.assertThat(findByLastName).extracting(User::getLogin).containsOnly(customer.getLogin());
+        Assertions.assertThat(findByLastName.getLogin()).isEqualTo(customer.getLogin());
     }
 }
