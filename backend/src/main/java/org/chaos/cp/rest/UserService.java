@@ -21,5 +21,4 @@ public class UserService {
     User getUser(@RequestParam(value = "userName", defaultValue = "") String userName) {
         return userRepository.findByLogin(userName);
     }
-
 }

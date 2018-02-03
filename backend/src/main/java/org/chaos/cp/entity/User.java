@@ -1,17 +1,18 @@
 package org.chaos.cp.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String login;
+
+    @ManyToOne
+    private Playlist playlist;
 
     public User(String login) {
         this.login = login;
@@ -32,4 +33,11 @@ public class User {
         return login;
     }
 
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+    }
 }

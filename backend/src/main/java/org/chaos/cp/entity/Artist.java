@@ -8,10 +8,16 @@ import javax.persistence.Id;
 @Entity
 public class Artist {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String name;
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }
