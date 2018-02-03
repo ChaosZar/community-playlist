@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_globalPlaylist"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_globalPlaylist" />
+
+    <item
+        android:id="@+id/navigation_myPlaylist"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_myPlaylist" />
+
+</menu>
