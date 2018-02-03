@@ -31,7 +31,7 @@ import java.util.List;
 @Component
 public class LocalFilesystemMusicFetcher {
     private static final Logger LOG = LoggerFactory.getLogger(LocalFilesystemMusicFetcher.class);
-    private static final String DIRECTORY = "C:\\"; //XXX configure me
+    private static final String DIRECTORY = System.getProperty("user.home");
 
     @Autowired
     private SongRepository songRepository;
