@@ -7,7 +7,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByLogin(String login);
 
-    User findOne(Long id);
-
-    User save(User user);
 }
