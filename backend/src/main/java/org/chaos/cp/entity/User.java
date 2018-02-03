@@ -11,7 +11,7 @@ public class User {
 
     private String login;
 
-    @ManyToOne
+    @OneToOne
     private Playlist playlist;
 
     public User(String login) {

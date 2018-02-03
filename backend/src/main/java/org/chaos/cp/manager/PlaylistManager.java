@@ -1,7 +1,7 @@
 package org.chaos.cp.manager;
 
 import org.chaos.cp.entity.Playlist;
-import org.chaos.cp.entity.Song;
+import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ public class PlaylistManager {
     private PlaylistRepository playlistRepository;
 
     @Transactional
-    public List<Song> getMasterPlaylist() {
+    public List<UserSong> getMasterPlaylist() {
         List<Playlist> allPlaylists = new ArrayList<>();
 
         Long songsCount = 0L;
-        List<Song> result = new ArrayList<>();
+        List<UserSong> result = new ArrayList<>();
         for (Playlist playlist : playlistRepository.findAll()) {
             songsCount += playlist.size();
             allPlaylists.add(playlist);

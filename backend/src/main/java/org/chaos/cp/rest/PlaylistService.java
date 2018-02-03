@@ -1,7 +1,7 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.Playlist;
-import org.chaos.cp.entity.Song;
+import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.manager.PlaylistManager;
 import org.chaos.cp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PlaylistService {
 
     @RequestMapping(path = "/overall", method = RequestMethod.GET)
     public @ResponseBody
-    List<Song> getCommunityPlaylist() {
+    List<UserSong> getCommunityPlaylist() {
         return playlistManager.getMasterPlaylist();
     }
 

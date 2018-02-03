@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.chaos.cp.entity.Playlist;
 import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.User;
+import org.chaos.cp.entity.UserSong;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,10 @@ public class UserRepositoryTests {
         Song song = new Song("SONG_NAME");
         persist(song);
 
+        UserSong userSong = new UserSong(song);
+
         Playlist playlist = new Playlist();
-        playlist.add(song);
+        playlist.add(userSong);
         persist(playlist);
 
         User customer = new User(LOGIN);
@@ -46,7 +49,7 @@ public class UserRepositoryTests {
 
         User findByLastName = customers.findByLogin(customer.getLogin());
 
-        Assertions.assertThat(findByLastName.getPlaylist().get(0).getTitle()).isEqualTo(customer.getPlaylist().get(0).getTitle());
+        Assertions.assertThat(findByLastName.getPlaylist().get(0).getSong().getTitle()).isEqualTo(customer.getPlaylist().get(0).getSong().getTitle());
     }
 
     private <E> E persist(E entity) {

@@ -19,7 +19,7 @@ public class Song {
                     referencedColumnName = "id"),
             inverseJoinColumns =
             @JoinColumn(
-                    name = "publisher_id",
+                    name = "artist_id",
                     referencedColumnName = "id")
     )
     private Artist artist;
