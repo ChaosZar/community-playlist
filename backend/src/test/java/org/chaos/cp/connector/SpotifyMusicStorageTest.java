@@ -21,7 +21,7 @@ public class SpotifyMusicStorageTest {
     @Ignore("requires Spotify authorization")
     @Test
     public void testFindSong() throws IOException {
-        Collection<Song> songs = spotifyMusicStorage.findSongsByName("Pretender");
+        Collection<Song> songs = spotifyMusicStorage.findSongsByTitle("Pretender");
         Assertions.assertThat(songs).extracting(Song::getTitle).isEqualTo("The Pretender");
     }
 }

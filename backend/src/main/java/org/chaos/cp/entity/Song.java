@@ -24,6 +24,9 @@ public class Song {
     )
     private Artist artist;
 
+    // filename, spotify uri, ... XXX change type to URI?
+    private String ref;
+
     public Song() {
     }
 
@@ -47,12 +50,21 @@ public class Song {
         this.artist = artist;
     }
 
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", artist=" + artist +
+                ", ref=" + ref +
                 '}';
     }
 }

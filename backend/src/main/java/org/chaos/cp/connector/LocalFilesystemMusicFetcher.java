@@ -6,6 +6,7 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 import org.apache.commons.lang3.StringUtils;
 import org.chaos.cp.entity.Artist;
 import org.chaos.cp.entity.Song;
+import org.chaos.cp.repository.ArtistRepository;
 import org.chaos.cp.repository.SongRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ import java.util.List;
 @Component
 public class LocalFilesystemMusicFetcher {
     private static final Logger LOG = LoggerFactory.getLogger(LocalFilesystemMusicFetcher.class);
-    private static final String DIRECTORY = "C:\\"; //XXX configure me
+    private static final String DIRECTORY = System.getProperty("user.home");
 
     @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    private ArtistRepository artistRepository;
 
     @Scheduled(fixedRate = 30*60*1000)
     public void fetchMusic() throws IOException {
@@ -81,9 +85,12 @@ public class LocalFilesystemMusicFetcher {
             }
             if (StringUtils.isNotBlank(title)) {
                 song = new Song(title);
-                Artist artist = new Artist();
-                //TODO find existing artists to avoid duplicates
-                artist.setName(artistName);
+                Artist artist = artistRepository.findArtistByName(artistName);
+                if (artist == null) {
+                    artist = new Artist();
+                    artist.setName(artistName);
+                    artist = artistRepository.save(artist);
+                }
                 song.setArtist(artist);
             }
         } catch (UnsupportedTagException e) {
@@ -96,6 +103,7 @@ public class LocalFilesystemMusicFetcher {
         if (song == null) {
             song = new Song(StringUtils.substringBeforeLast(path.getFileName().toString(), ".")); //XXX split filename by -
         }
+        song.setRef(path.toString());
         return song;
     }
 

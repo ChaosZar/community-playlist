@@ -20,11 +20,11 @@ public class SpotifyMusicStorage implements MusicStorage {
 
 
     @Override
-    public Collection<Song> findSongsByName(String name) throws IOException {
+    public Collection<Song> findSongsByTitle(String title) throws IOException {
         // Create an API instance. The default instance connects to https://api.spotify.com/.
         Api api = Api.DEFAULT_API;
 
-        TrackSearchRequest searchRequest = api.searchTracks(name).build();
+        TrackSearchRequest searchRequest = api.searchTracks(title).build();
 
         try {
             Page<Track> trackPage = searchRequest.get();
