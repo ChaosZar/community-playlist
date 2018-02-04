@@ -97,4 +97,8 @@ public class PlaylistManager {
             playlist.add(userSong);
         }
     }
+
+    public Playlist createEmptyPlaylist() {
+        return playlistRepository.save(new Playlist());
+    }
 }
