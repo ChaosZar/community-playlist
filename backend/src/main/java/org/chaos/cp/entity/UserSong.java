@@ -13,9 +13,6 @@ public class UserSong implements Comparable<UserSong> {
     @JoinColumn(name = "songId")
     private Song song;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
 
     private Integer rank = 0;
 
@@ -25,8 +22,7 @@ public class UserSong implements Comparable<UserSong> {
 
     }
 
-    public UserSong(User user, Song song, Integer position) {
-        this.user = user;
+    public UserSong(Song song, Integer position) {
         this.song = song;
         this.position = position;
     }
@@ -46,10 +42,6 @@ public class UserSong implements Comparable<UserSong> {
 
     public Song getSong() {
         return song;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public Integer getRank() {

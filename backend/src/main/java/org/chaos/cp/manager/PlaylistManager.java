@@ -104,9 +104,11 @@ public class PlaylistManager {
 
         Integer positionIndex = 0;
         for (Song song : songs) {
-            UserSong userSong = new UserSong(user, song, positionIndex++);
+            UserSong userSong = new UserSong(song, positionIndex++);
+            userSongRepository.save(userSong);
             playlist.add(userSong);
         }
+        playlistRepository.save(playlist);
     }
 
     public Playlist createEmptyPlaylist() {

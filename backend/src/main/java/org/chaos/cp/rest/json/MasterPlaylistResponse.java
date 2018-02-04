@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MasterPlaylistResponse {
-    List<UserSong> songs = new ArrayList<>();
+    private List<UserSong> songs = new ArrayList<>();
 
     public MasterPlaylistResponse(List<UserSong> songs) {
         this.songs = songs;
