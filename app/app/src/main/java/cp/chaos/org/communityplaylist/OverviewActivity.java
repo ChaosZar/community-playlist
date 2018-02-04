@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class OverviewActivity extends AppCompatActivity {
 
     private static final int LOGIN_REQUEST_CODE = 1;
+    private static final int SEARCH_REQUEST_CODE = 2;
 
     private ArrayAdapter<String> arrayAdapter;
 
@@ -31,18 +33,25 @@ public class OverviewActivity extends AppCompatActivity {
     }
 
     public void openSearchClick(View view) {
-        startActivity(new Intent(this, SearchActivity.class));
+        startActivityForResult(new Intent(this, SearchActivity.class), SEARCH_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
+        if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 arrayAdapter.add("Logged in as: " + data.getStringExtra("result"));
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
+            }
+        } else if(requestCode == SEARCH_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(this.getApplicationContext(), "Successfully added song!", Toast.LENGTH_LONG).show();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this.getApplicationContext(), "Failure by adding song!", Toast.LENGTH_LONG).show();
             }
         }
     }
