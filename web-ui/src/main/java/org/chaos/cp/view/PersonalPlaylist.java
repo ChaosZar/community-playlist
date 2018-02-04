@@ -1,10 +1,13 @@
 package org.chaos.cp.view;
 
+import org.chaos.cp.UserSession;
 import org.chaos.cp.connector.ServerConnector;
 import org.chaos.cp.connector.json.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.ManagedBean;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +17,14 @@ public class PersonalPlaylist {
     @Autowired
     private ServerConnector serverConnector;
 
+    @Autowired
+    private UserSession userSession;
+
     private String searchText;
     private List<Song> searchResult = new ArrayList<>();
     private List<Song> userPlaylist = new ArrayList<>();
     private Song selectedSong;
+    private String save;
 
     public String getSearchText() {
         return searchText;
@@ -61,5 +68,14 @@ public class PersonalPlaylist {
 
     public Song getSelectedSong() {
         return selectedSong;
+    }
+
+    public void save() {
+        serverConnector.savePlaylist(userSession.getUser().getId(), userPlaylist);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/overview.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -31,4 +31,8 @@ public class ServerConnector {
     public List<Song> search(String searchText) {
         return getObject(SongList.class, SONG_ENDPOINT + searchText).getSongs();
     }
+
+    public void savePlaylist(Integer id, List<Song> userPlaylist) {
+        restTemplate.put(BASE_URL + PLAYLIST_ENDPOINT, new PutPlaylistRequest(id, userPlaylist));
+    }
 }

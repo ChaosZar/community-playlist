@@ -1,5 +1,6 @@
 package org.chaos.cp.view;
 
+import org.chaos.cp.UserSession;
 import org.chaos.cp.connector.ServerConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,9 @@ public class Login {
     @Autowired
     private ServerConnector serverConnector;
 
+    @Autowired
+    private UserSession userSession;
+
     private String username;
 
     public String getUsername() {
@@ -24,7 +28,7 @@ public class Login {
     }
 
     public void doLogin() {
-        serverConnector.getUser(username);
+        userSession.setUser(serverConnector.getUser(username));
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/overview.xhtml");
         } catch (IOException e) {

@@ -19,6 +19,7 @@ public class OverviewPlaylist {
         return serverConnector.getMasterPlaylist();
     }
 
+
     public void goToMyMusic() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/personal.xhtml");
