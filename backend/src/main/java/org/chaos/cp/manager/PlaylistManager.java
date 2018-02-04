@@ -6,12 +6,14 @@ import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.User;
 import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.repository.PlaylistRepository;
+import org.chaos.cp.repository.SongRepository;
 import org.chaos.cp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class PlaylistManager {
 
     @Autowired
     private PlaylistRepository playlistRepository;
+
+    @Autowired
+    private SongRepository songRepository;
 
     @Transactional
     public List<UserSong> getMasterPlaylist() {
@@ -86,9 +91,10 @@ public class PlaylistManager {
                 .getRank();
     }
 
-    public void setPlaylistForUser(final Long userId, final List<Song> songs) {
+    public void setPlaylistForUser(final Long userId, final Collection<Long> songIds) {
         User user = userRepository.findOne(userId);
         Validate.notNull(user, "userId %d not found", userId);
+        Iterable<Song> songs = this.songRepository.findAll(songIds);
         Playlist playlist = user.getPlaylist();
         playlist.reset();
 
