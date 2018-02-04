@@ -20,8 +20,9 @@ public class UserManager {
         if (byLogin == null) {
             Playlist emptyPlaylist = playlistManager.createEmptyPlaylist();
 
-            byLogin = userRepository.save(new User(userName));
-            byLogin.setPlaylist(emptyPlaylist);
+            User user = new User(userName);
+            user.setPlaylist(emptyPlaylist);
+            byLogin = userRepository.save(user);
         }
         return byLogin;
     }
