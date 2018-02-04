@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -38,5 +39,9 @@ public class ServerConnector {
 
     public void savePlaylist(Integer id, List<Song> userPlaylist) {
         restTemplate.put(BASE_URL + PLAYLIST_ENDPOINT, new PutPlaylistRequest(id, userPlaylist));
+    }
+
+    public void incrementRanking(User user, UserSong userSong) {
+        throw new NotImplementedException();
     }
 }

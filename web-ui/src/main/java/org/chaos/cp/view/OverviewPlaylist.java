@@ -1,5 +1,6 @@
 package org.chaos.cp.view;
 
+import org.chaos.cp.UserSession;
 import org.chaos.cp.connector.ServerConnector;
 import org.chaos.cp.connector.json.UserSong;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class OverviewPlaylist {
     @Autowired
     private ServerConnector serverConnector;
 
+    @Autowired
+    private UserSession userSession;
+
     public List<UserSong> getMasterPlaylist() {
         return serverConnector.getMasterPlaylist();
     }
@@ -22,5 +26,9 @@ public class OverviewPlaylist {
 
     public void goToMyMusic() {
         FacesUtils.redirect(PersonalPlaylist.PATH);
+    }
+
+    public void setAddRating(UserSong userSong) {
+        serverConnector.incrementRanking(userSession.getUser(), userSong);
     }
 }

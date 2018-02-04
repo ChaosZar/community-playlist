@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 
@@ -14,8 +14,19 @@
 
     <p:dataTable var="userSong" value="#{overviewPlaylist.masterPlaylist}" id="masterTable">
 
-        <p:column headerText="name" sortBy="#{userSong.song.title}" filterBy="#{userSong.song.title}">
+        <p:column headerText="Title">
             <h:outputText value="#{userSong.song.title}"/>
+        </p:column>
+        <p:column headerText="Artist">
+            <h:outputText value="#{userSong.song.artist}"/>
+        </p:column>
+        <p:column headerText="Ranking">
+            <h:outputText value="#{userSong.rank}"/>
+        </p:column>
+        <p:column headerText="Vote">
+            <p:commandButton icon="ui-icon-plus">
+                <f:setPropertyActionListener value="#{userSong}" target="#{overviewPlaylist.addRating}"/>
+            </p:commandButton>
         </p:column>
     </p:dataTable>
 
