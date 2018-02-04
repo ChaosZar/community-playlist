@@ -7,5 +7,6 @@ import java.util.Collection;
 
 public interface SongRepository extends CrudRepository<Song, Long> {
 
-    Collection<Song> findSongsByTitleContaining(String title);
+    Collection<Song> findSongsByTitleContainingIgnoreCase(String title);
+    Collection<Song> findSongsByArtist_NameContainingIgnoreCase(String artistName);
 }

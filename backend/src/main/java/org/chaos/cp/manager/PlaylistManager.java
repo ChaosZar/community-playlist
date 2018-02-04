@@ -72,11 +72,17 @@ public class PlaylistManager {
     }
 
     private Long getHighestPlaylistSize(List<Playlist> allPlaylists) {
-        return allPlaylists.stream().max(Comparator.comparing(Playlist::size)).get().size();
+        return allPlaylists.stream()
+                .max(Comparator.comparing(Playlist::size))
+                .orElse(new Playlist())
+                .size();
     }
 
     private Integer getHighestSongRating(List<Playlist> playlists) {
-        return playlists.stream().flatMap(playlist -> playlist.getSongs().stream()).max(Comparator.comparing(UserSong::getRank)).get().getRank();
+        return playlists.stream()
+                .flatMap(playlist -> playlist.getSongs().stream())
+                .max(Comparator.comparing(UserSong::getRank)).orElse(new UserSong())
+                .getRank();
     }
 
     public void setPlaylistForUser(final Long userId, final List<Song> songs) {
@@ -90,5 +96,9 @@ public class PlaylistManager {
             UserSong userSong = new UserSong(user, song, positionIndex++);
             playlist.add(userSong);
         }
+    }
+
+    public Playlist createEmptyPlaylist() {
+        return playlistRepository.save(new Playlist());
     }
 }

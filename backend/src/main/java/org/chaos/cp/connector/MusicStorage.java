@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public interface MusicStorage {
     Collection<Song> findSongsByTitle(String title) throws IOException;
+    Collection<Song> findSongsByArtist(String artistName) throws IOException;
+    Song getSong(Long id) throws IOException;
 
     boolean isEnabled();
 }

@@ -1,7 +1,7 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.User;
-import org.chaos.cp.repository.UserRepository;
+import org.chaos.cp.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserService {
 
+
     @Autowired
-    private UserRepository userRepository;
+    private UserManager userManager;
 
     @RequestMapping(path = "{userName}", method = RequestMethod.GET)
     public @ResponseBody
     User getUser(@RequestParam(value = "userName", defaultValue = "") String userName) {
-        return userRepository.findByLogin(userName);
+        return userManager.getUser(userName);
     }
 }

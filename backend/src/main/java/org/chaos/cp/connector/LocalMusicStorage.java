@@ -14,7 +14,17 @@ public class LocalMusicStorage implements MusicStorage {
 
     @Override
     public Collection<Song> findSongsByTitle(String title) {
-        return songRepository.findSongsByTitleContaining(title);
+        return songRepository.findSongsByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public Collection<Song> findSongsByArtist(String artistName) {
+        return songRepository.findSongsByArtist_NameContainingIgnoreCase(artistName);
+    }
+
+    @Override
+    public Song getSong(Long id) {
+        return songRepository.findOne(id);
     }
 
     @Override
