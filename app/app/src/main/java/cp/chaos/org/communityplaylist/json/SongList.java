@@ -7,7 +7,7 @@ import java.util.List;
  * @since 4.6.
  */
 
-public class SearchResults {
+public class SongList {
     private List<Song> songs;
 
     public List<Song> getSongs() {

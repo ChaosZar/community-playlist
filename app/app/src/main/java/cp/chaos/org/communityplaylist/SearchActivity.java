@@ -25,7 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import cp.chaos.org.communityplaylist.json.PlaylistPut;
-import cp.chaos.org.communityplaylist.json.SearchResults;
+import cp.chaos.org.communityplaylist.json.SongList;
 import cp.chaos.org.communityplaylist.json.Song;
 
 public class SearchActivity extends AppCompatActivity {
@@ -60,6 +60,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 Song song = (Song) adapterView.getItemAtPosition(i);
                 sendPutPlaylistRequest(song);
+                addedSong = true;
 
             }
         });
@@ -81,7 +82,7 @@ public class SearchActivity extends AppCompatActivity {
         sendSearchRequest();
     }
     private void sendPutPlaylistRequest(Song song) {
-        String url = baseUrl + "playlist";
+        String url = baseUrl + "/playlist";
 
         PlaylistPut playlistPut = new PlaylistPut();
         List<Song> songs = new ArrayList<>();
@@ -97,6 +98,8 @@ public class SearchActivity extends AppCompatActivity {
         } catch(JSONException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Sending playlistPut json: " + jsonObject.toString());
 
         JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
                 new Response.Listener<JSONObject>()
@@ -156,9 +159,9 @@ public class SearchActivity extends AppCompatActivity {
     private void parseSearchResultJson(JSONObject response) {
         Gson gson = new Gson();
         System.out.println(response.toString());
-        SearchResults searchResults = gson.fromJson(response.toString(), SearchResults.class);
+        SongList songList = gson.fromJson(response.toString(), SongList.class);
 
-        for (Song song : searchResults.getSongs()) {
+        for (Song song : songList.getSongs()) {
             arrayAdapter.add(song);
         }
 
