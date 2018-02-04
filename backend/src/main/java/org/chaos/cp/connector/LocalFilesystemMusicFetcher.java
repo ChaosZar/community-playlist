@@ -17,9 +17,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -32,6 +34,7 @@ import java.util.List;
 public class LocalFilesystemMusicFetcher {
     private static final Logger LOG = LoggerFactory.getLogger(LocalFilesystemMusicFetcher.class);
     private static final String DIRECTORY = System.getProperty("user.home");
+    private static final PathMatcher FILE_MATCHER = FileSystems.getDefault().getPathMatcher("glob:*.mp3");
 
     @Autowired
     private SongRepository songRepository;
@@ -55,7 +58,7 @@ public class LocalFilesystemMusicFetcher {
                     throws IOException {
                 FileVisitResult result = super.visitFile(path, basicFileAttributes);
                 if (StringUtils.startsWith(Files.probeContentType(path), "audio") ||
-                        path.endsWith(".mp3")) { // hack in case file associations are not correct
+                        FILE_MATCHER.matches(path)) { // hack in case file associations are not correct
                     LOG.debug("found " + path.toString());
                     Song song = parseSongDetails(path);
                     songs.add(song);
