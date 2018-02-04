@@ -54,7 +54,8 @@ public class LocalFilesystemMusicFetcher {
             public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes)
                     throws IOException {
                 FileVisitResult result = super.visitFile(path, basicFileAttributes);
-                if (StringUtils.startsWith(Files.probeContentType(path), "audio")) {
+                if (StringUtils.startsWith(Files.probeContentType(path), "audio") ||
+                        path.endsWith(".mp3")) { // hack in case file associations are not correct
                     LOG.debug("found " + path.toString());
                     Song song = parseSongDetails(path);
                     songs.add(song);
