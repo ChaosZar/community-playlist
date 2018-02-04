@@ -21,13 +21,6 @@ public class User {
         this.login = login;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Customer[id=%d, login='%s']",
-                id, login);
-    }
-
     public Long getId() {
         return id;
     }
@@ -42,5 +35,14 @@ public class User {
 
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", playlist=" + playlist +
+                '}';
     }
 }

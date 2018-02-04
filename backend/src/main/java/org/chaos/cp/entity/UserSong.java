@@ -52,6 +52,7 @@ public class UserSong implements Comparable<UserSong> {
     public String toString() {
         return "UserSong{" +
                 "id=" + id +
+                ", song=" + song +
                 ", rank=" + rank +
                 ", position=" + position +
                 '}';

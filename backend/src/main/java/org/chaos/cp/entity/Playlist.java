@@ -45,4 +45,12 @@ public class Playlist {
     public List<UserSong> getSongs() {
         return songs;
     }
+
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "id=" + id +
+                ", songs=" + songs +
+                '}';
+    }
 }

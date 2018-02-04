@@ -72,7 +72,7 @@ public class Song {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", artist=" + artist +
-                ", ref=" + ref +
+                ", ref='" + ref + '\'' +
                 '}';
     }
 }

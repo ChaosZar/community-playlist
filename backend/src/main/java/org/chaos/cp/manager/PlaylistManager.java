@@ -9,6 +9,8 @@ import org.chaos.cp.repository.PlaylistRepository;
 import org.chaos.cp.repository.SongRepository;
 import org.chaos.cp.repository.UserRepository;
 import org.chaos.cp.repository.UserSongRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ import java.util.List;
 
 @Service
 public class PlaylistManager {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PlaylistManager.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -38,6 +42,7 @@ public class PlaylistManager {
         List<UserSong> result = new ArrayList<>();
 
         List<Playlist> allPlaylists = getAllPlaylistsAsList();
+        LOG.debug("Following Playlists found: " + allPlaylists);
 
         for (Integer maxRanking = getHighestSongRating(allPlaylists); maxRanking >= 0; maxRanking--) {
             addSongsToResult(allPlaylists, maxRanking, result);
@@ -96,6 +101,7 @@ public class PlaylistManager {
     }
 
     public void setPlaylistForUser(final Long userId, final Collection<Long> songIds) {
+        LOG.info("setPlaylistForUser(" + userId + "," + songIds + ")");
         User user = userRepository.findOne(userId);
         Validate.notNull(user, "userId %d not found", userId);
         Iterable<Song> songs = this.songRepository.findAll(songIds);
@@ -112,6 +118,8 @@ public class PlaylistManager {
     }
 
     public Playlist createEmptyPlaylist() {
-        return playlistRepository.save(new Playlist());
+        Playlist playlist = playlistRepository.save(new Playlist());
+        LOG.info("new Playlist created with ID: " + playlist.getId());
+        return playlist;
     }
 }
