@@ -8,7 +8,15 @@
 
 <h:body>
 
-    <p:spinner/>
+    <h:form>
+        <p:panel>
+            <h:inputText value="#{login.username}"/>
+
+            <p:commandButton value="login" actionListener="#{login.doLogin()}"/>
+
+        </p:panel>
+
+    </h:form>
 
 </h:body>
 </html>

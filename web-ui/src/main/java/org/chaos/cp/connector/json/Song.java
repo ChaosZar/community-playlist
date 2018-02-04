@@ -3,7 +3,6 @@ package org.chaos.cp.connector.json;
 public class Song {
     private Artist artist = new Artist();
     private Integer id = 0;
-    private String name = "";
     private String ref = "";
     private String title = "";
 
@@ -21,14 +20,6 @@ public class Song {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getRef() {
