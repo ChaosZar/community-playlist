@@ -19,6 +19,10 @@ public class UserService {
     @RequestMapping(path = "{userName}", method = RequestMethod.GET)
     public @ResponseBody
     User getUser(@RequestParam(value = "userName", defaultValue = "") String userName) {
-        return userRepository.findByLogin(userName);
+        User byLogin = userRepository.findByLogin(userName);
+        if (byLogin == null) {
+            byLogin = userRepository.save(new User(userName));
+        }
+        return byLogin;
     }
 }
