@@ -59,7 +59,7 @@ public class LocalFilesystemMusicFetcher {
                 FileVisitResult result = super.visitFile(path, basicFileAttributes);
                 if (StringUtils.startsWith(Files.probeContentType(path), "audio") ||
                         FILE_MATCHER.matches(path)) { // hack in case file associations are not correct
-                    LOG.debug("found " + path.toString());
+                    LOG.info("found " + path.toString());
                     Song song = parseSongDetails(path);
                     songs.add(song);
                 }
