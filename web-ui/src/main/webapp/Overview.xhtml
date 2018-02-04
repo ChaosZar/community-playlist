@@ -8,7 +8,16 @@
 
 <h:body>
 
-    <p:spinner/>
+    <h:form>
+        <p:commandButton value="my Music" actionListener="#{overviewPlaylist.goToMyMusic()}"/>
+    </h:form>
+
+    <p:dataTable var="userSong" value="#{overviewPlaylist.masterPlaylist}" id="masterTable">
+
+        <p:column headerText="name" sortBy="#{userSong.song.name}" filterBy="#{userSong.song.name}">
+            <h:outputText value="#{userSong.song.name}"/>
+        </p:column>
+    </p:dataTable>
 
 </h:body>
 </html>

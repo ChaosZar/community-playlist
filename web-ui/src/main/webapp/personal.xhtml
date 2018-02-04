@@ -8,7 +8,27 @@
 
 <h:body>
 
-    <p:spinner/>
+    <p:panel>
+        <h:form>
+            <h:inputText value="#{personalPlaylist.searchText}"/>
+            <p:commandButton value="search" actionListener="#{personalPlaylist.doSearch()}" update="searchResult"/>
+
+            <p:dataTable var="search" value="#{personalPlaylist.searchResult}" id="searchResult">
+                <p:column headerText="id">
+                    <h:outputText value="#{search.id}"/>
+                </p:column>
+                <p:column headerText="title">
+                    <h:outputText value="#{search.title}"/>
+                </p:column>
+                <p:column headerText="artist name">
+                    <h:outputText value="#{search.artist.name}"/>
+                </p:column>
+                <p:column headerText="ref">
+                    <h:outputText value="#{search.ref}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </p:panel>
 
 </h:body>
 </html>
