@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 
@@ -8,27 +8,50 @@
 
 <h:body>
 
-    <p:panel>
-        <h:form>
-            <h:inputText value="#{personalPlaylist.searchText}"/>
-            <p:commandButton value="search" actionListener="#{personalPlaylist.doSearch()}" update="searchResult"/>
+    <div>
+        <p:panel>
+            <h:form>
+                <h:inputText value="#{personalPlaylist.searchText}"/>
+                <p:commandButton value="search" actionListener="#{personalPlaylist.doSearch()}" update="searchResult"/>
 
-            <p:dataTable var="search" value="#{personalPlaylist.searchResult}" id="searchResult">
-                <p:column headerText="id">
-                    <h:outputText value="#{search.id}"/>
-                </p:column>
-                <p:column headerText="title">
-                    <h:outputText value="#{search.title}"/>
-                </p:column>
-                <p:column headerText="artist name">
-                    <h:outputText value="#{search.artist.name}"/>
-                </p:column>
-                <p:column headerText="ref">
-                    <h:outputText value="#{search.ref}"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
-    </p:panel>
-
+                <p:dataTable var="search" value="#{personalPlaylist.searchResult}" id="searchResult">
+                    <p:column headerText="id">
+                        <h:outputText value="#{search.id}"/>
+                    </p:column>
+                    <p:column headerText="title">
+                        <h:outputText value="#{search.title}"/>
+                    </p:column>
+                    <p:column headerText="artist name">
+                        <h:outputText value="#{search.artist.name}"/>
+                    </p:column>
+                    <p:column headerText="ref">
+                        <h:outputText value="#{search.ref}"/>
+                    </p:column>
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update="userPlaylist" icon="ui-icon-add"
+                                         title="add" >
+                            <f:setPropertyActionListener value="#{search}" target="#{personalPlaylist.selectedSong}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+    </div>
+    <div>
+        <p:dataTable var="song" value="#{personalPlaylist.userPlaylist}" id="userPlaylist">
+            <p:column headerText="id">
+                <h:outputText value="#{song.id}"/>
+            </p:column>
+            <p:column headerText="title">
+                <h:outputText value="#{song.title}"/>
+            </p:column>
+            <p:column headerText="artist name">
+                <h:outputText value="#{song.artist.name}"/>
+            </p:column>
+            <p:column headerText="ref">
+                <h:outputText value="#{song.ref}"/>
+            </p:column>
+        </p:dataTable>
+    </div>
 </h:body>
 </html>
