@@ -8,6 +8,7 @@ import org.chaos.cp.entity.UserSong;
 import org.chaos.cp.repository.PlaylistRepository;
 import org.chaos.cp.repository.SongRepository;
 import org.chaos.cp.repository.UserRepository;
+import org.chaos.cp.repository.UserSongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,9 @@ public class PlaylistManager {
 
     @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    private UserSongRepository userSongRepository;
 
     @Transactional
     public List<UserSong> getMasterPlaylist() {
