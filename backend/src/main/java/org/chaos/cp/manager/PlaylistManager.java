@@ -1,5 +1,6 @@
 package org.chaos.cp.manager;
 
+import org.apache.commons.lang3.Validate;
 import org.chaos.cp.entity.Playlist;
 import org.chaos.cp.entity.Song;
 import org.chaos.cp.entity.User;
@@ -87,7 +88,7 @@ public class PlaylistManager {
 
     public void setPlaylistForUser(final Long userId, final List<Song> songs) {
         User user = userRepository.findOne(userId);
-
+        Validate.notNull(user, "userId %d not found", userId);
         Playlist playlist = user.getPlaylist();
         playlist.reset();
 
