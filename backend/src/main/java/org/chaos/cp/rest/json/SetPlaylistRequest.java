@@ -1,15 +1,13 @@
 package org.chaos.cp.rest.json;
 
 
-import org.chaos.cp.entity.Song;
-
-import java.util.List;
+import java.util.Collection;
 
 public class SetPlaylistRequest {
 
     private Long userId;
 
-    private List<Song> songs;
+    private Collection<Long> songIds;
 
     public Long getUserId() {
         return userId;
@@ -19,11 +17,11 @@ public class SetPlaylistRequest {
         this.userId = userId;
     }
 
-    public List<Song> getSongs() {
-        return songs;
+    public Collection<Long> getSongIds() {
+        return songIds;
     }
 
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public void setSongIds(Collection<Long> songIds) {
+        this.songIds = songIds;
     }
 }
