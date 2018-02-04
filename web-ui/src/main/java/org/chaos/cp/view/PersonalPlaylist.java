@@ -6,13 +6,13 @@ import org.chaos.cp.connector.json.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.ManagedBean;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
 public class PersonalPlaylist {
+
+    public static String PATH = "/personal.xhtml";
 
     @Autowired
     private ServerConnector serverConnector;
@@ -72,10 +72,6 @@ public class PersonalPlaylist {
 
     public void save() {
         serverConnector.savePlaylist(userSession.getUser().getId(), userPlaylist);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/overview.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FacesUtils.redirect(OverviewPlaylist.PATH);
     }
 }

@@ -5,11 +5,12 @@ import org.chaos.cp.connector.ServerConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.ManagedBean;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
+import javax.annotation.PostConstruct;
 
 @ManagedBean
 public class Login {
+
+    public static String PATH = "/login.xhtml";
 
     @Autowired
     private ServerConnector serverConnector;
@@ -18,6 +19,14 @@ public class Login {
     private UserSession userSession;
 
     private String username;
+
+
+    @PostConstruct
+    private void postConstruct() {
+//        if (userSession.getUser() != null) {
+//            FacesUtils.redirect(OverviewPlaylist.PATH);
+//        }
+    }
 
     public String getUsername() {
         return username;
@@ -29,10 +38,6 @@ public class Login {
 
     public void doLogin() {
         userSession.setUser(serverConnector.getUser(username));
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/overview.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FacesUtils.redirect(OverviewPlaylist.PATH);
     }
 }

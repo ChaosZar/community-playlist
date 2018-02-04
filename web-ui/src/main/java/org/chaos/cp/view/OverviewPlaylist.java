@@ -5,12 +5,12 @@ import org.chaos.cp.connector.json.UserSong;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.ManagedBean;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 import java.util.List;
 
 @ManagedBean
 public class OverviewPlaylist {
+
+    public static String PATH = "/overview.xhtml";
 
     @Autowired
     private ServerConnector serverConnector;
@@ -21,10 +21,6 @@ public class OverviewPlaylist {
 
 
     public void goToMyMusic() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/personal.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FacesUtils.redirect(PersonalPlaylist.PATH);
     }
 }

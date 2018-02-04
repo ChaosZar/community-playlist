@@ -14,8 +14,8 @@
 
     <p:dataTable var="userSong" value="#{overviewPlaylist.masterPlaylist}" id="masterTable">
 
-        <p:column headerText="name" sortBy="#{userSong.song.name}" filterBy="#{userSong.song.name}">
-            <h:outputText value="#{userSong.song.name}"/>
+        <p:column headerText="name" sortBy="#{userSong.song.title}" filterBy="#{userSong.song.title}">
+            <h:outputText value="#{userSong.song.title}"/>
         </p:column>
     </p:dataTable>
 

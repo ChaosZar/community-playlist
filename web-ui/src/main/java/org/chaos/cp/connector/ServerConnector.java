@@ -1,6 +1,8 @@
 package org.chaos.cp.connector;
 
 import org.chaos.cp.connector.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,6 +11,7 @@ import java.util.List;
 @Service
 public class ServerConnector {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ServerConnector.class);
     private static final String BASE_URL = "http://127.0.0.1:8080/";
     private static final String PLAYLIST_ENDPOINT = "playlist/";
     private static final String USER_ENDPOINT = "user/";
@@ -25,6 +28,7 @@ public class ServerConnector {
     }
 
     private <E> E getObject(Class<E> clazz, String endpoint) {
+        LOG.info("Will call: " + BASE_URL + endpoint + " - For: " + clazz);
         return restTemplate.getForObject(BASE_URL + endpoint, clazz);
     }
 
