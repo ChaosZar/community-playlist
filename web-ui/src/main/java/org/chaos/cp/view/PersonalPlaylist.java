@@ -16,6 +16,8 @@ public class PersonalPlaylist {
 
     private String searchText;
     private List<Song> searchResult = new ArrayList<>();
+    private List<Song> userPlaylist = new ArrayList<>();
+    private Song selectedSong;
 
     public String getSearchText() {
         return searchText;
@@ -39,5 +41,25 @@ public class PersonalPlaylist {
 
     public void doSearch() {
         searchResult = serverConnector.search(searchText);
+    }
+
+    public void setUserPlaylist(List<Song> userPlaylist) {
+        this.userPlaylist = userPlaylist;
+    }
+
+    public List<Song> getUserPlaylist() {
+        return userPlaylist;
+    }
+
+    public void addSong() {
+        userPlaylist.add(selectedSong);
+    }
+
+    public void setSelectedSong(Song selectedSong) {
+        userPlaylist.add(selectedSong);
+    }
+
+    public Song getSelectedSong() {
+        return selectedSong;
     }
 }

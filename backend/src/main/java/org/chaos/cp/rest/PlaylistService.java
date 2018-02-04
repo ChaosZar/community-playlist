@@ -41,7 +41,7 @@ public class PlaylistService {
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void setPlaylistForUser(SetPlaylistRequest setPlaylistRequest) {
-        playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(), setPlaylistRequest.getSongs());
+        playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(), setPlaylistRequest.getSongIds());
     }
 
 }
