@@ -1,6 +1,7 @@
 package org.chaos.cp.rest;
 
 import org.chaos.cp.entity.Playlist;
+import org.chaos.cp.entity.Song;
 import org.chaos.cp.manager.PlaylistManager;
 import org.chaos.cp.repository.UserRepository;
 import org.chaos.cp.rest.json.MasterPlaylistResponse;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin
@@ -41,7 +44,8 @@ public class PlaylistService {
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void setPlaylistForUser(SetPlaylistRequest setPlaylistRequest) {
-        playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(), setPlaylistRequest.getSongIds());
+        playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(),
+                setPlaylistRequest.getSongs().stream().map(Song::getId).collect(Collectors.toList()));
     }
 
 }
