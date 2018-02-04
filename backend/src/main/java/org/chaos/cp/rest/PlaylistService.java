@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +44,7 @@ public class PlaylistService {
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void setPlaylistForUser(SetPlaylistRequest setPlaylistRequest) {
+    public void setPlaylistForUser(@RequestBody SetPlaylistRequest setPlaylistRequest) {
         playlistManager.setPlaylistForUser(setPlaylistRequest.getUserId(),
                 setPlaylistRequest.getSongs().stream().map(Song::getId).collect(Collectors.toList()));
     }
