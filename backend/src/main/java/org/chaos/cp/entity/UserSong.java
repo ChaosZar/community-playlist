@@ -55,4 +55,13 @@ public class UserSong implements Comparable<UserSong> {
     public Integer getRank() {
         return rank;
     }
+
+    @Override
+    public String toString() {
+        return "UserSong{" +
+                "id=" + id +
+                ", rank=" + rank +
+                ", position=" + position +
+                '}';
+    }
 }

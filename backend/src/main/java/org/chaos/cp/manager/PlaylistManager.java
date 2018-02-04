@@ -25,29 +25,54 @@ public class PlaylistManager {
 
     @Transactional
     public List<UserSong> getMasterPlaylist() {
-        List<Playlist> allPlaylists = new ArrayList<>();
-
-        Long songsCount = 0L;
         List<UserSong> result = new ArrayList<>();
-        for (Playlist playlist : playlistRepository.findAll()) {
-            songsCount += playlist.size();
-            allPlaylists.add(playlist);
+
+        List<Playlist> allPlaylists = getAllPlaylistsAsList();
+
+        for (Integer maxRanking = getHighestSongRating(allPlaylists); maxRanking >= 0; maxRanking--) {
+            addSongsToResult(allPlaylists, maxRanking, result);
         }
 
+        return result;
+    }
+
+    private List<Playlist> getAllPlaylistsAsList() {
+        List<Playlist> allPlaylists = new ArrayList<>();
+        for (Playlist playlist : playlistRepository.findAll()) {
+            allPlaylists.add(playlist);
+        }
+        return allPlaylists;
+    }
+
+    /**
+     * Populates the given parameter <i>result</i> with the songs of all user in a rather fair way.
+     * Only Songs with a certain ranking will be added to the list, other songs will be ignored.
+     *
+     * @param allPlaylists a list of all user playlists
+     * @param targetRank   the ranking a song has to have to be added to the list
+     * @param result       a list that may be pre populated with songs. All new found songs will be added to this list.
+     */
+    private void addSongsToResult(final List<Playlist> allPlaylists, final Integer targetRank, List<UserSong> result) {
+        final Long highestPlaylistSize = getHighestPlaylistSize(allPlaylists);
         Integer playlistIndex = 0;
         Integer playlistSongIndex = 0;
-        for (int songCounter = 0; songCounter < songsCount; songCounter++) {
+        while (playlistSongIndex < highestPlaylistSize) {
             if (playlistIndex == allPlaylists.size()) {
                 playlistIndex = 0;
                 playlistSongIndex++;
             }
             if (playlistSongIndex < allPlaylists.get(playlistIndex).size()) {
-                result.add(allPlaylists.get(playlistIndex).get(playlistSongIndex));
+                UserSong potentialSongToAdd = allPlaylists.get(playlistIndex).get(playlistSongIndex);
+                if (potentialSongToAdd.getRank().equals(targetRank)) {
+                    result.add(potentialSongToAdd);
+                }
             }
             playlistIndex++;
         }
+    }
 
-        return result;
+    private Long getHighestPlaylistSize(List<Playlist> allPlaylists) {
+        return allPlaylists.stream().max(Comparator.comparing(Playlist::size)).get().size();
     }
 
     private Integer getHighestSongRating(List<Playlist> playlists) {
