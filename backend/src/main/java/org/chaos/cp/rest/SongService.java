@@ -2,6 +2,7 @@ package org.chaos.cp.rest;
 
 import org.chaos.cp.connector.MusicStorage;
 import org.chaos.cp.entity.Song;
+import org.chaos.cp.rest.json.SongList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class SongService {
 
     @RequestMapping(path = "/{name}", method = RequestMethod.GET)
     public @ResponseBody
-    List<Song> findSongsByName(@PathVariable(value = "name") String name) {
-        return getEnabledMusicStorages()
+    SongList findSongsByName(@PathVariable(value = "name") String name) {
+        return new SongList(getEnabledMusicStorages()
                 .flatMap(musicStorage -> {
                     Collection<Song> songs;
                     try {
@@ -43,7 +44,7 @@ public class SongService {
                         songs = Collections.emptyList();
                     }
                     return songs.stream();
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toList()));
     }
 
     private Stream<MusicStorage> getEnabledMusicStorages() {
